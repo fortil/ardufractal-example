@@ -1,5 +1,5 @@
 'use strict';
-
+import '!style!css!./vendor/icomoon/style.css'
 import snabbdom from 'snabbdom'
 
 const app = require('./app')

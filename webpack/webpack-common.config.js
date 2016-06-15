@@ -55,11 +55,14 @@ export default {
       { test: /\.scss$/, loaders: ["style", "css", "sass"] },
     ],
   },
-
+  // Externals para johnny-five  
+  externals: ["bindings"],
+  //
   plugins: [
-    /*new webpack.optimize.CommonsChunkPlugin(
-      'vendor', 'vendor-[chunkhash].js', Infinity
-    ),*/
+    // Plugins para johnny-five    
+    new webpack.IgnorePlugin(/^mock-firmata$/),
+    new webpack.ContextReplacementPlugin(/bindings$/, /^$/),
+    // 
     new webpack.optimize.CommonsChunkPlugin('init.js'),
     new HtmlWebpackPlugin({
       title: name,
