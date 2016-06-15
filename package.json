@@ -1,0 +1,50 @@
+{
+  "name": "arduino",
+  "version": "1.0.0",
+  "description": "Controlando arduino con johnny-five y FractalJS",
+  "main": "index.js",
+  "scripts": {
+    "compile-cordova": "set NODE_ENV=production && webpack --config webpack/webpack-prod-cordova.config.babel.js --progress",
+    "compile": "set NODE_ENV=production && webpack --config webpack/webpack-prod.config.babel.js --progress",
+    "compile-server": "set NODE_ENV=production && webpack --config webpack/webpack-server.config.babel.js --progress",
+    "start": "webpack-dev-server --config webpack/webpack-dev.config.babel.js --progress"
+  },
+  "author": "William Penagos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fortil/ardufractal-example.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-closure-elimination": "0.0.2",
+    "babel-plugin-typecheck": "^1.3.0",
+    "babel-runtime": "^5.8.25",
+    "css-loader": "^0.19.0",
+    "file-loader": "^0.8.4",
+    "json-loader": "^0.5.4",
+    "node-libs-browser": "^0.5.3",
+    "node-sass": "^3.3.3",
+    "sass-loader": "^3.0.0",
+    "script-loader": "^0.6.1",
+    "style-loader": "^0.12.4",
+    "url-loader": "^0.5.6"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^0.1.9",
+    "compression-webpack-plugin": "^0.3.1",
+    "crypto-js": "^3.1.6",
+    "html-webpack-plugin": "^2.17.0",
+    "ramda": "^0.21.0",
+    "snabbdom": "^0.3.0",
+    "webpack": "^1.13.0",
+    "webpack-cordova-plugin": "^0.1.6",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.12.0",
+    "whatwg-fetch": "^0.10.0",
+    "johnny-five": "^0.9.56"
+  }
+}
