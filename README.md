@@ -12,3 +12,15 @@ Example of aplication made with johnny-five and fractalJS to controled arduino's
 <code>npm start</code>
 <br>
 Server run in http://localhost:3000
+<br>
+## Cordova
+### Install cordova
+`npm install -g cordova`
+### Add crosswalk and whitelist
+`cordova plugin add cordova-plugin-crosswalk-webview`
+<br>
+`cordova plugin add cordova-plugin-whitelist`
+<br>
+<br>
+### Demo video
+https://youtu.be/qo5MbT27ePE
