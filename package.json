@@ -30,6 +30,7 @@
     "node-sass": "^3.3.3",
     "sass-loader": "^3.0.0",
     "script-loader": "^0.6.1",
+    "snabbdom-material": "^0.6.5",
     "style-loader": "^0.12.4",
     "url-loader": "^0.5.6"
   },
