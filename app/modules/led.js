@@ -8,31 +8,38 @@ const R = {
 }
 const h = require('snabbdom/h')
 const F = require('F')
+const io = require('socket.io-client')
 
 module.exports = F.def({
   init: ()=>({
-    state:'off',
-    ini:false,
-    timeInput:{
-      value:'',
-      focus:false,
-    }
+    state:'false',
+    send:false,
+    focus:false,
+    focusServ:false,
+    val:'',
+    server:'localhost:8080',
   }),
   inputs:{
-    ontimeInput: (ctx,Action,a)=>ctx.action$(Action.OntimeInput()),
+    msInput: (ctx,Action,a)=>ctx.action$(Action.MsInput()),
+    serverInput: (ctx,Action,a)=>ctx.action$(Action.ServerInput()),
+    setServer: (ctx,Action,a)=>ctx.action$(Action.SetServer(a.target.value)),
     setValue: (ctx,Action,a)=>ctx.action$(Action.SetValue(a.target.value)),
-    arduino: (ctx,Action,a)=>ctx.action$(Action.Arduino()),
+    arduino: (ctx,Action,a)=>ctx.action$(Action.Arduino(a)),
   },
   outputNames: ['changePage$'],
   actions:{
-    OntimeInput:[[],R.evolve({timeInput:R.evolve({focus:R.not})})],
-    SetValue:[[String],(_,m)=>R.evolve({timeInput:R.evolve({value:R.always(_)})},m)],
-    Arduino:[[],R.evolve({state:R.not,ini:R.always(R.T)})],
+    ServerInput:[[],R.evolve({focusServ:R.not})],
+    MsInput:[[],R.evolve({focus:R.not})],
+    SetValue:[[String],(_,m)=>R.evolve({val:R.always(_),focus:((_!='')?R.T:R.F)},m)],
+    SetServer:[[String],(_,m)=>R.evolve({server:R.always(_),focusServ:((_!='')?R.T:R.F)},m)],
+    Arduino:[[String],(_,m)=>R.evolve({state:R.always(_),send:R.not},m)],
   },
   interfaces:{
     view:(ctx,i,m)=>{
-      if(m.ini){
-        strobeLed(m.timeInput.value,m.state)
+      if(m.send){
+        let socket = io('http://'+m.server)
+        socket.emit('led',{ms:+m.val,state:m.state})
+        i.arduino('true')
       }
       return h('div.home',
                 {
@@ -41,7 +48,7 @@ module.exports = F.def({
         h('div',[
           h('img',{
             attrs:{src:require('../vendor/imgs/fractal.png')},
-            style:{width:'100%'}
+            style:{maxWidth:'100%'}
           }),
         ]),
         h('div',{style:{margin:'0px 10px'}},[
@@ -49,31 +56,13 @@ module.exports = F.def({
             'Has que parpadee el LED a diferente tiempo',
           ]),
         ]),
-        h('div',{style:{width:'100%',margin:'0px 10px'}},[
-          Input({label:'Tiempo en ms',isFocused:m.timeInput.focus,type:'number',onFocus:i.ontimeInput,onBlur:i.ontimeInput,onChange:i.setValue}),
-          Button({onClick:i.arduino,primary:'primary',style:{width:'95%'}},(m.state=='off')?'Iniciar':'Parar'),
+        h('div',{style:{maxWidth:'100%',margin:'0px 10px'}},[
+          Input({label:'Tiempo en ms',type:'number',isFocused:()=>m.focus,onFocus:i.msInput,onBlur:i.msInput,onChange:i.setValue}),
+          Input({label:'Servidor',type:'text',value:m.server,isFocused:()=>m.focusServ,onFocus:i.serverInput,onBlur:i.serverInput,onChange:i.setServer}),
+          Button({onClick:()=>{i.arduino('true')},primary:'primary',style:{width:'95%'}},'Iniciar'),
+          Button({onClick:()=>{i.arduino('false')},secondary:'secondary',style:{width:'95%'}},'Parar'),
         ])
       ])
     }
   },
 })
-
-function strobeLed(ms,state) {
-  let five = require("johnny-five")
-  let myBoard, myLed;
-  myBoard = new five.Board()
-  
-  myBoard.on("ready", function() {
-    myLed = new five.Led(13)
-    if (state=='off') {
-      console.log(ms,'off')
-      myLed.stop().off()
-    }else{
-      console.log(ms,'on')
-      myLed.strobe( +ms )
-    }
-    this.repl.inject({
-      led: myLed
-    })
-  })
-}

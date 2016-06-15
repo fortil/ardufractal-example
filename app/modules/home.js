@@ -21,14 +21,12 @@ module.exports = F.def({
             style:{width:'100%'}
           }),
         ]),
-        h('div',[
+        h('div',{style:{margin:'0px 10px'}},[
           h('h1','ArduFractal'),
-          h('p',[
-            'Una aplicación funcional creada con FractalJS y johnny-five',
-            h('b','¡Genial!')
-          ]),
+          h('p','Una aplicación funcional creada con FractalJS y johnny-five'),
+          h('b','¡Genial!')
         ]),
-        h('div',{style:{width:'100%'}},[
+        h('div',{style:{maxWidth:'100%',margin:'0px 10px'}},[
           Button({onClick:()=>ctx.changePage$('led'),primary:'primary',style:{width:'95%'}},'Comienza'),
         ])
       ])

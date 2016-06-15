@@ -37,11 +37,12 @@
   "dependencies": {
     "clean-webpack-plugin": "^0.1.9",
     "compression-webpack-plugin": "^0.3.1",
-    "crypto-js": "^3.1.6",
     "html-webpack-plugin": "^2.17.0",
     "johnny-five": "^0.9.56",
     "ramda": "^0.21.0",
     "snabbdom": "^0.3.0",
+    "socket.io": "^1.4.6",
+    "socket.io-client": "^1.4.6",
     "webpack": "^1.13.0",
     "webpack-cordova-plugin": "^0.1.6",
     "webpack-dev-server": "^1.14.1",
