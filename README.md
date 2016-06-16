@@ -14,7 +14,7 @@ Example of aplication made with johnny-five and fractalJS to controled arduino's
 Client run in http://localhost:3000
 <br>
 ### Run server aplication 
-<code>node server.js</code>
+<code>node server/server.js</code>
 <br>
 Server run in http://localhost:8080
 <br>
