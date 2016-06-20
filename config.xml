@@ -5,7 +5,7 @@
   Aplicación para prender e iniciar un led
   </description>
   <author email="a3@a3.co" href="http://a3.co">
-    Develop by William penagos
+    Developed by William penagos
   </author>
   <icon src="app/vendor/imgs/logo.png" />
   <content src="index.html"/>
