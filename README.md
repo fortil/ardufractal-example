@@ -8,7 +8,25 @@ Example of aplication made with johnny-five and fractalJS to controled arduino's
 <br>
 <code>npm i</code>
 <br>
-### Run
+### Run client aplication 
 <code>npm start</code>
 <br>
-Server run in http://localhost:3000
+Client run in http://localhost:3000
+<br>
+### Run server aplication 
+<code>node server/server.js</code>
+<br>
+Server run in http://localhost:8080
+<br>
+--------------------
+## Cordova
+### Install cordova
+`npm install -g cordova`
+### Add crosswalk and whitelist
+`cordova plugin add cordova-plugin-crosswalk-webview`
+<br>
+`cordova plugin add cordova-plugin-whitelist`
+<br>
+<br>
+### Demo video
+https://youtu.be/qo5MbT27ePE
