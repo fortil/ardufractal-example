@@ -33,6 +33,7 @@ module.exports = F.def({
           h('div',[
             Sidenav.Item({onClick:()=>ctx.changePage$('home'),showIcon:true,icon:Icon({name:'home3'})},['Inicio']),
             Sidenav.Item({onClick:()=>ctx.changePage$('led'),showIcon:true,icon:Icon({name:'brightness-contrast'})},['LED']),
+            Sidenav.Item({onClick:()=>ctx.changePage$('camera'),showIcon:true,icon:Icon({name:'brightness-contrast'})},['Camara']),
           ])
         ]),
         Appbar({fixed:true},[

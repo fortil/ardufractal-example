@@ -1,4 +1,5 @@
-'use strict';
+'use strict'; //me permite programar con javascr
+
 import '!style!css!./vendor/icomoon/style.css'
 import snabbdom from 'snabbdom'
 
@@ -18,7 +19,7 @@ let core = F.createEngine({
   root:app,
   drivers:{
     view: F.drivers.view('#app',patch),
-    fetch:F.drivers.fetch(),
+    /*fetch:F.drivers.fetch(),*/
   }
 })
 

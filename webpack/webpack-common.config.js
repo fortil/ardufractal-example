@@ -57,7 +57,7 @@ export default {
     new webpack.optimize.CommonsChunkPlugin('init.js'),
     new HtmlWebpackPlugin({
       title: name,
-      minify: process.env.NODE_ENV === 'production' ? {
+      minify: false,/*process.env.NODE_ENV === 'production' ? {
         removeComments: true,
         removeCommentsFromCDATA: true,
         collapseWhitespace: true,
@@ -70,7 +70,7 @@ export default {
         removeEmptyAttributes: true,
         removeScriptTypeAttributes: true,
         removeStyleLinkTypeAttributes: true,
-      } : false,
+      } : false,*/
       template: './app/index.ejs',
     }),
     new webpack.HotModuleReplacementPlugin(),
