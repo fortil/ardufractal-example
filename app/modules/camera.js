@@ -15,21 +15,24 @@ module.exports = F.def({
   }),
   inputs:{
     arduino: (ctx,Action,a)=>{
-      ctx.action$(Action.Arduino())
+      var options = {
+          name: "Image", //image suffix
+          dirName: "CameraPictureBackground", //foldername
+          orientation: "landscape", //or portrait
+          type: "back" //or front
+      };
+
+      function success(imgurl) {
+        ctx.action$(Action.Arduino(imgurl))
+      }
+      function error(imgurl) {
+        ctx.action$(Action.Arduino(''))
+      }
+      window.plugins.CameraPictureBackground.takePicture(success, error, options);
     },
   },
   actions:{
-    Arduino:[[],(m)=>{
-      navigator.camera.getPicture(function(imageURI) {
-        if(m.takePicture==false){
-          return R.evolve({takePicture:R.not,img_source:R.always(imageURI)},m)
-        }else{
-          return R.evolve({takePicture:R.not},m)
-        }
-      }, function(message) {
-        return R.evolve({takePicture:R.not},m)
-      }, {quality:50})
-    }],
+    Arduino:[[String],(imageURI,m)=>R.evolve({takePicture:R.not,img_source:R.always(imageURI)},m)],
   },
   interfaces:{
     view:(ctx,i,m)=>{
