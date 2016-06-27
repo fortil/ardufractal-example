@@ -30,3 +30,5 @@ Server run in http://localhost:8080
 <br>
 ### Demo video
 https://youtu.be/qo5MbT27ePE
+### Other video
+https://youtu.be/8awOdA3sVeA

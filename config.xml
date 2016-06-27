@@ -12,6 +12,8 @@
   <access origin="*" />
   <allow-navigation href="http:///*" />
   <preference name="android-installLocation" value="preferExternal" />
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+  <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
   <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
   <preference name="xwalkMode" value="embedded" />
   <preference name="xwalkMultipleApk" value="true" />

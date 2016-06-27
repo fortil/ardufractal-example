@@ -7,6 +7,7 @@ var app = require('http').createServer(handler),
      io = require('socket.io').listen(app),
      fs = require('fs'),
    five = require('johnny-five');
+var t2 = new Date()
 
 app.listen(8080);
 
@@ -14,6 +15,7 @@ app.listen(8080);
 board = new five.Board()
 
 board.on("ready", function() {
+  var sensor = this
   led = new five.Led(13)
 
   io.sockets.on('connection', function (socket) {
@@ -24,5 +26,17 @@ board.on("ready", function() {
         led.strobe(+data.ms)
       }
     })
-  }) 
+    sensor.pinMode(1, five.Pin.ANALOG)
+      sensor.analogRead(1, function(voltage) {
+        if(voltage>600)
+          emit(io,new Date(),voltage)
+      })
+    }) 
 })
+function emit(io,t,volt) {
+  var diff = Math.abs(t-t2)/2000
+  if(diff>1){
+    io.emit('sensor',volt)
+    t2 = new Date()
+  }
+}

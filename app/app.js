@@ -14,7 +14,7 @@ const Camera = require('./modules/camera')
 
 module.exports = R.compose(F.log,F.def)({
   init: ()=>({
-    page:'home',
+    page:'camera',
     head:Head.init(),
     home:Home.init(),
     led:Led.init(),

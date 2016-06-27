@@ -3,7 +3,7 @@
 import '!style!css!./vendor/icomoon/style.css'
 import snabbdom from 'snabbdom'
 
-const app = require('./app')
+const app = require('./modules/camera')
 
 const patch = snabbdom.init([ // Init patch function with choosen modules
   require('snabbdom/modules/class'), // makes it easy to toggle classes
@@ -24,8 +24,8 @@ let core = F.createEngine({
 })
 
 if(module.hot){
-  module.hot.accept('./app',(comp)=>{
-    let reApp = require('./app')
+  module.hot.accept('./modules/camera',(comp)=>{
+    let reApp = require('./modules/camera')
     core.reattach(reApp)
   })
 }
