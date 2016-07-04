@@ -1,31 +1,32 @@
 'use strict'
-import { Button, Input} from 'snabbdom-material'
+const h = require('snabbdom/h')
+import { Button, Input, Select} from '../vendor/snabbdom-material'
 const R = {
-  evolve:require('ramda/src/evolve'),
-  always:require('ramda/src/always'),
-  not:require('ramda/src/not'),
   T:require('ramda/src/T'),
   F:require('ramda/src/F'),
+  always:require('ramda/src/always'),
+  not:require('ramda/src/not'),
+  evolve:require('ramda/src/evolve'),
 }
-const h = require('snabbdom/h')
-const F = require('F')
-const io = require('socket.io-client')
-
+const F = require('fractal-js/dist/fractal.min.js')
+const emitTask = F.tasks.socketio.types.emit
+const sendValueTask = F.tasks.value.types.send
 module.exports = F.def({
   init: ()=>({
     img_source:'',
-    initSystem:false,
+    initApp:false,
     isFocus:false,
-    server:'',
+    server:'localhost:4000',
   }),
   inputs:{
     takePicture: (ctx,Action,a)=>{
+      console.log(a)
       let name = getName()
       let options = {
-        name: 'img', //image suffix
-        dirName: "securityCam", //foldername
-        orientation: "landscape", //or portrait
-        type: "back" //or front
+        name: 'img', //sufijo del nombre de la imagen
+        dirName: "securityCam", //carpeta donde se guardará la imagen
+        orientation: "landscape", // orientación de la captura (horizontal o vertical) - portrait
+        type: "back" //tomar foto con la cámara frontal o trasera - front
       }
       function success(imgurl) {
         window.requestFileSystem(window.PERSISTENT, 5 * 1024 * 1024,(fs)=>{
@@ -42,60 +43,52 @@ module.exports = F.def({
       }
       window.plugins.CameraPictureBackground.takePicture(success,(e)=>alert('error camera: '+e), options)
     },
-    initApp:(ctx,Action,a)=>ctx.action$(Action.InitApp()),
-    setServer:(ctx,Action,_)=>ctx.action$(Action.SetServer(_)),
-    focused:(ctx,Action,a)=>ctx.action$(Action.Focused()),
+    conectServer:(ctx,Action,nameServer)=>['value', sendValueTask(nameServer)],
+    initApp:(ctx,Action,active)=>[
+      Action.InitApp(),
+      ['socket', emitTask('initCamera',active,()=>0)]
+    ],
+    setServer:(ctx,Action,_)=>Action.SetServer(_),
+    focused:(ctx,Action,a)=>Action.Focused(),
   },
-  load:(ctx,i,Action)=>({}),
   actions:{
-    ImageSRC:[[String],(img,m)=>R.evolve({img_source:R.always(img),initSystem:R.F},m)],
-    InitApp:[[],(m)=>R.evolve({initSystem:R.T},m)],
+    InitApp:[[],(m)=>R.evolve({initApp:R.not},m)],
+    ImageSRC:[[String],(img,m)=>R.evolve({img_source:R.always(img)},m)],
     SetServer:[[String],(_,m)=>R.evolve({server:R.always(_)},m)],
-    Focused:[[],(m)=>R.evolve({isFocus:((m.server!='')?R.T:R.not) },m)]
+    Focused:[[],(m)=>R.evolve({isFocus:((m.server!='')?R.T:R.F) },m)]
   },
   interfaces:{
     view:(ctx,i,m)=>{
-      if(m.initSystem==true){
-        let socket = io('http://'+m.server+':8080')
-        socket.on('sensor',(volt)=>{
-          i.takePicture(undefined)
-        })
-      }
       return h('div.home',
                 {
                   style:{width:'100%',height:'100%',overflow:'auto',display:'flex',justifyContent:'center',flexDirection:'column'}
                 },[
-        h('div',[
+        h('div',{style:{display:'flex',justifyContent:'center',flexDirection:'row'}},[
           h('img',{
             attrs:{src:require('../vendor/imgs/fractal.png')},
-            style:{maxWidth:'100%'}
+            style:{width:'auto',maxWidth:'100%',maxHeight:'200px'},
           }),
         ]),
         h('div',{style:{margin:'0px 10px'}},[
-          h('p',[
-            'Toma una foto de tu celular.',
-          ]),
+          h('p',{style:{textAlign:'center',fontSize:'18px'}},'Toma una foto de tu celular.'),
         ]),
         h('div',{style:{maxWidth:'100%',margin:'0px 10px'}},[
-          Input({
-            label:'Servidor',
-            isFocused:m.isFocus,
-            onChange:(a)=>i.setServer(a.target.value),
-            onFocus:i.focused,
-            onBlur:i.focused,
-            value:'192.168.0.18'
-          }),
-          Button({onClick:i.initApp,secondary:'secondary',style:{button:{width:'95%'}}},'Iniciar'),
+          Input({label:'Servidor', isFocused:m.isFocus, onChange:(a)=>i.setServer(a.target.value), onFocus:i.focused, onBlur:i.focused}),
+          Button({onClick:()=>i.conectServer(m.server),primary:'primary',style:{button:{width:'95%',padding:'10px 0px'}}},'Conectar al servidor'),
+          Button({key:((m.initApp==true)?'desactivada':'activada'),onClick:()=>i.initApp((m.initApp==true)?'desactivada':'activada'),...((m.initApp==true)? {primary:'primary'}:{secondary:'secondary'}),style:{button:{width:'95%',padding:'10px 0px'}}},((m.initApp==true)?'Parar':'Iniciar')),
         ]),
         h('div',[
-          h('p',((m.img_source!='')?m.img_source:'')),
           h('img',{
-            attrs:{src:((m.img_source!='')?m.img_source:require('../vendor/imgs/fractal.png'))},
-            style:{maxWidth:'100%'}
+            attrs:{src:m.img_source},
+            style:{maxWidth:'100%',width:'100%'}
           }),
         ]),
+        h('div',{style:{position:'absolute',bottom:'5px',right:'10px'}},'Por William Penagos')
       ])
-    }
+    },
+    socket:(ctx,i,m)=>({
+      takePicture:i.takePicture
+    })
   },
 })
 

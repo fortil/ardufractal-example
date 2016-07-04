@@ -1,34 +1,56 @@
 # ardufractal-example
-Example of aplication made with johnny-five and fractalJS to controled arduino's LED
+
+Example of aplication made with johnny-five and fractalJS to controled arduino's LED and smarthphone camera
 
 ### Install
-<code>git clone https://github.com/fortil/ardufractal-example.git</code>
-<br>
-<code>cd ardufractal-example</code>
-<br>
-<code>npm i</code>
-<br>
+
+```
+git clone https://github.com/fortil/ardufractal-example.git
+```
+
+```
+cd ardufractal-example
+```
+
+```
+npm i
+```
+
 ### Run client aplication 
-<code>npm start</code>
-<br>
+
+```
+npm start
+```
+
 Client run in http://localhost:3000
-<br>
+
 ### Run server aplication 
-<code>node server/server.js</code>
-<br>
+
+```
+node server/server.js
+```
+
 Server run in http://localhost:8080
-<br>
+
+
 --------------------
 ## Cordova
 ### Install cordova
-`npm install -g cordova`
+
+```
+npm install -g cordova
+```
+
 ### Add crosswalk and whitelist
-`cordova plugin add cordova-plugin-crosswalk-webview`
-<br>
-`cordova plugin add cordova-plugin-whitelist`
-<br>
-<br>
+
+```
+cordova plugin add cordova-plugin-crosswalk-webview
+```
+
+```
+cordova plugin add cordova-plugin-whitelist
+```
+
 ### Demo video
 https://youtu.be/qo5MbT27ePE
-### Other video
 https://youtu.be/8awOdA3sVeA

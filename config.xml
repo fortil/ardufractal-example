@@ -1,22 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.a3.ardufractal" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Ardufractal</name>
-  <description>
-  Aplicación para prender e iniciar un led
+<widget id="co.a3.ardufractalsensorpir" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Ardufractal Sensor PIR</name>
+    <description>
+  Aplicación para la captura de fotos por medio de un PIR, Arduino y un servidor
   </description>
-  <author email="a3@a3.co" href="http://a3.co">
+    <author email="a3@a3.co" href="http://a3.co">
     Developed by William penagos
   </author>
-  <icon src="app/vendor/imgs/logo.png" />
-  <content src="index.html"/>
-  <access origin="*" />
-  <allow-navigation href="http:///*" />
-  <preference name="android-installLocation" value="preferExternal" />
-  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-  <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
-  <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
-  <preference name="xwalkMode" value="embedded" />
-  <preference name="xwalkMultipleApk" value="true" />
-  <preference name="xwalkVersion" value="xwalk_core_library_beta:18.48.477.9" />
-  <preference name="loadUrlTimeoutValue" value="1000000" />
+    <icon src="app/vendor/imgs/logo.png" />
+    <content src="index.html"/>
+    <access origin="*" />
+    <allow-navigation href="http:///*" />
+    <preference name="android-installLocation" value="preferExternal" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
+    <preference name="loadUrlTimeoutValue" value="1000000" />
 </widget>

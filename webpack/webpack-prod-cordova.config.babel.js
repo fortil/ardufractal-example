@@ -24,12 +24,12 @@ export default merge(commonConfig, {
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(true),
-    /*new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
       },
       comments: /\@license|\@preserv/gi,
-    }),*/
+    }),
     function writeWebpackStats() {
       this.plugin("done", function writeStats(stats) {
         require("fs").writeFileSync(
