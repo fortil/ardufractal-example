@@ -27,7 +27,7 @@
     "file-loader": "^0.8.4",
     "json-loader": "^0.5.4",
     "node-libs-browser": "^0.5.3",
-    "node-sass": "^3.3.3",
+    "node-sass": "^4.14.1",
     "sass-loader": "^3.0.0",
     "script-loader": "^0.6.1",
     "snabbdom-material": "^0.6.5",
